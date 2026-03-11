@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Phantasialand – Achterbahnen</title>
+  <meta name="description" content="Übersicht der Achterbahnen im Phantasialand – mit Bild und Fakten." />
+
+  <style>
+    :root{
+      --bg:#ffffff;
+      --text:#0f172a;
+      --muted:#64748b;
+      --border:#e2e8f0;
+      --surface:#ffffff;
+      --accent:#7f1d1d;
+      --shadow:0 12px 28px rgba(2,6,23,.08);
+      --radius:18px;
+      --max:1100px;
+      --header-h:72px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      color:var(--text);
+      background:linear-gradient(180deg,#fff 0%,#fff 55%,#f8fafc 100%);
+    }
+    a{color:inherit; text-decoration:none}
+    a:focus-visible, button:focus-visible{outline:3px solid rgba(127,29,29,.30); outline-offset:3px; border-radius:10px}
+
+    header{
+      position:sticky;
+      top:0;
+      z-index:50;
+      background:rgba(255,255,255,.82);
+      backdrop-filter:saturate(180%) blur(10px);
+      border-bottom:1px solid var(--border);
+    }
+    .header-inner{
+      height:var(--header-h);
+      max-width:var(--max);
+      margin:0 auto;
+      padding:0 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+
+    .brand{display:flex; align-items:center; gap:10px; font-weight:800}
+    .brand-mark{
+      width:34px; height:34px; border-radius:12px;
+      background:linear-gradient(135deg, rgba(185,28,28,.95), rgba(127,29,29,.9));
+      box-shadow:0 8px 18px rgba(185,28,28,.18);
+    }
+
+    .btn{
+      border:1px solid var(--border);
+      background:var(--surface);
+      padding:10px 12px;
+      border-radius:14px;
+      font-weight:800;
+      font-size:14px;
+      cursor:pointer;
+      transition:transform .04s ease, box-shadow .2s ease;
+    }
+    .btn:hover{box-shadow:0 10px 20px rgba(2,6,23,.08)}
+    .btn:active{transform:translateY(1px)}
+
+    main{max-width:var(--max); margin:0 auto; padding:28px 18px 52px}
+
+    .page-head{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      margin-bottom:18px;
+    }
+    h1{
+      margin:0;
+      font-size:clamp(34px, 4vw, 52px);
+      letter-spacing:-.6px;
+      font-family: ui-serif, Georgia, "Times New Roman", Times, serif;
+    }
+    .lead{margin:0; color:var(--muted); line-height:1.6; max-width:70ch}
+
+    .list{
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+      margin-top:18px;
+    }
+
+    .card{
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.86);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .card-inner{
+      display:grid;
+      grid-template-columns: 340px 1fr;
+      gap:18px;
+      padding:16px;
+      align-items:start;
+    }
+
+    .imgwrap{
+      border-radius:14px;
+      overflow:hidden;
+      border:1px solid rgba(226,232,240,.9);
+      background:#f1f5f9;
+      aspect-ratio: 4 / 3;
+      display:flex;
+      align-items:stretch;
+      justify-content:stretch;
+    }
+    .imgwrap img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    .meta h2{margin:0 0 10px; font-size:24px; letter-spacing:-.3px}
+    .facts{
+      margin:0;
+      padding:0;
+      list-style:none;
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap:10px 16px;
+    }
+
+    .fact{
+      border:1px solid rgba(226,232,240,.9);
+      border-radius:14px;
+      padding:10px 12px;
+      background:#fff;
+    }
+    .k{display:block; font-size:12px; color:var(--muted); font-weight:800; text-transform:uppercase; letter-spacing:.08em}
+    .v{display:block; font-weight:800; margin-top:4px}
+
+    .note{
+      margin-top:12px;
+      padding-top:12px;
+      border-top:1px solid rgba(226,232,240,.9);
+      color:var(--muted);
+      line-height:1.6;
+    }
+    .note strong{color:var(--text)}
+
+    footer{
+      margin-top:26px;
+      color:var(--muted);
+      font-size:13px;
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding-top:16px;
+      border-top:1px solid var(--border);
+    }
+
+    @media (max-width: 900px){
+      .card-inner{grid-template-columns: 280px 1fr}
+    }
+    @media (max-width: 760px){
+      .card-inner{grid-template-columns: 1fr;}
+      .facts{grid-template-columns: 1fr;}
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      *{transition:none !important;}
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="header-inner">
+      <a class="brand" href="index.html" aria-label="Zurück zu Parks">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Parks</span>
+      </a>
+
+      <a class="btn" href="index.html">Zur Startseite</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="page-head">
+      <h1>Phantasialand</h1>
+      <p class="lead">Achterbahnen im Überblick – jeweils mit Bild und kompakten Fakten. Du kannst die Einträge beliebig erweitern (einfach eine weitere <code>.card</code> kopieren).</p>
+    </div>
+
+    <section class="list" aria-label="Achterbahnen Liste">
+      <!-- Black Mamba -->
+      <article class="card" id="blackmamba">
+        <div class="card-inner">
+          <div class="imgwrap">
+            <!-- Lege dein Bild z.B. unter assets/blackmamba.jpg ab und passe den Pfad an. -->
+            <img src="assets/blackmamba.jpg" alt="Black Mamba – Achterbahn" onerror="this.style.display='none'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center'; this.parentElement.innerHTML='<div style=\'padding:18px; color:#64748b; font-weight:800;\'>Bild hinzufügen: assets/blackmamba.jpg</div>'" />
+          </div>
+
+          <div class="meta">
+            <h2>Black Mamba</h2>
+            <ul class="facts">
+              <li class="fact"><span class="k">Modell</span><span class="v">B&amp;M Invert</span></li>
+              <li class="fact"><span class="k">Max. Speed</span><span class="v">80 km/h</span></li>
+              <li class="fact"><span class="k">Höhe</span><span class="v">26 m</span></li>
+              <li class="fact"><span class="k">Drop</span><span class="v">27 m</span></li>
+              <li class="fact"><span class="k">Länge</span><span class="v">768 m</span></li>
+              <li class="fact"><span class="k">Inversions</span><span class="v">3</span></li>
+            </ul>
+            <p class="note"><strong>Besonderheit:</strong> Die Bahn ist in den Boden integriert und nutzt das Gelände für sehr nahe Kurven.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Taron -->
+      <article class="card" id="taron">
+        <div class="card-inner">
+          <div class="imgwrap">
+            <img src="assets/taron.jpg" alt="Taron – Achterbahn" onerror="this.style.display='none'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center'; this.parentElement.innerHTML='<div style=\'padding:18px; color:#64748b; font-weight:800;\'>Bild hinzufügen: assets/taron.jpg</div>'" />
+          </div>
+
+          <div class="meta">
+            <h2>Taron</h2>
+            <ul class="facts">
+              <li class="fact"><span class="k">Modell</span><span class="v">Intamin Blitz</span></li>
+              <li class="fact"><span class="k">Max. Speed</span><span class="v">117 km/h</span></li>
+              <li class="fact"><span class="k">Höhe</span><span class="v">30 m</span></li>
+              <li class="fact"><span class="k">Länge</span><span class="v">1320 m</span></li>
+              <li class="fact"><span class="k">LSM</span><span class="v">2</span></li>
+              <li class="fact"><span class="k">Inversions</span><span class="v">0</span></li>
+            </ul>
+            <p class="note"><strong>Besonderheit:</strong> Viele nahe Kreuzungen über/unter der eigenen Strecke – sehr dynamisches Layout.</p>
+          </div>
+        </div>
+      </article>
+    
+    <!-- F.L.Y. -->
+    <article class="card" id="fly">
+    <div class="card-inner">
+        <div class="imgwrap">
+        <img src="assets/fly.jpg" alt="F.L.Y. – Achterbahn"
+            onerror="this.style.display='none'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center'; this.parentElement.innerHTML='<div style=\'padding:18px; color:#64748b; font-weight:800;\'>Bild hinzufügen: assets/fly.jpg</div>'" />
+        </div>
+
+        <div class="meta">
+        <h2>F.L.Y.</h2>
+        <ul class="facts">
+            <li class="fact"><span class="k">Modell</span><span class="v">Vekoma Flying Coaster (Custom)</span></li>
+            <li class="fact"><span class="k">Max. Speed</span><span class="v">78 km/h</span></li>
+            <li class="fact"><span class="k">Höhe</span><span class="v">ca. 20 m</span></li>
+            <li class="fact"><span class="k">Länge</span><span class="v">1.236 m</span></li>
+            <li class="fact"><span class="k">Inversions</span><span class="v">2</span></li>
+            <li class="fact"><span class="k">Launch</span><span class="v">LSM (Launch Coaster)</span></li>
+        </ul>
+        <p class="note"><strong>Besonderheit:</strong> Flying-Launch-Coaster mit starkem Theming (Rookburgh) und zwei Inversionen.</p>
+        </div>
+    </div>
+    </article>
+
+    <!-- Raik -->
+    <article class="card" id="raik">
+    <div class="card-inner">
+        <div class="imgwrap">
+        <img src="assets/raik.jpg" alt="Raik – Achterbahn"
+            onerror="this.style.display='none'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center'; this.parentElement.innerHTML='<div style=\'padding:18px; color:#64748b; font-weight:800;\'>Bild hinzufügen: assets/raik.jpg</div>'" />
+        </div>
+
+        <div class="meta">
+        <h2>Raik</h2>
+        <ul class="facts">
+            <li class="fact"><span class="k">Modell</span><span class="v">Vekoma Junior Boomerang</span></li>
+            <li class="fact"><span class="k">Max. Speed</span><span class="v">62 km/h</span></li>
+            <li class="fact"><span class="k">Höhe</span><span class="v">25 m</span></li>
+            <li class="fact"><span class="k">Länge</span><span class="v">210 m</span></li>
+            <li class="fact"><span class="k">Inversions</span><span class="v">0</span></li>
+            <li class="fact"><span class="k">Typ</span><span class="v">Shuttle / Family</span></li>
+        </ul>
+        <p class="note"><strong>Besonderheit:</strong> Family-Boomerang in Klugheim – fährt vorwärts und rückwärts durch das Layout.</p>
+        </div>
+    </div>
+    </article>
+
+    <!-- Colorado Adventure -->
+    <article class="card" id="colorado-adventure">
+    <div class="card-inner">
+        <div class="imgwrap">
+        <img src="assets/colorado.jpg" alt="Colorado Adventure – Achterbahn"
+            onerror="this.style.display='none'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center'; this.parentElement.innerHTML='<div style=\'padding:18px; color:#64748b; font-weight:800;\'>Bild hinzufügen: assets/colorado.jpg</div>'" />
+        </div>
+
+        <div class="meta">
+        <h2>Colorado Adventure</h2>
+        <ul class="facts">
+            <li class="fact"><span class="k">Modell</span><span class="v">Vekoma Mine Train (Custom)</span></li>
+            <li class="fact"><span class="k">Max. Speed</span><span class="v">50 km/h</span></li>
+            <li class="fact"><span class="k">Höhe</span><span class="v">26 m</span></li>
+            <li class="fact"><span class="k">Länge</span><span class="v">1.280 m</span></li>
+            <li class="fact"><span class="k">Inversions</span><span class="v">0</span></li>
+            <li class="fact"><span class="k">Typ</span><span class="v">Mine Train</span></li>
+        </ul>
+        <p class="note"><strong>Besonderheit:</strong> Lange Minetrain-Bahn im Mexico-Bereich – klassisches Familien-Layout ohne Inversionen.</p>
+        </div>
+    </div>
+    </article>
+
+    <!-- Crazy Bats -->
+    <article class="card" id="crazy-bats">
+    <div class="card-inner">
+        <div class="imgwrap">
+        <img src="assets/crazy-bats.jpg" alt="Crazy Bats – Achterbahn"
+            onerror="this.style.display='none'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center'; this.parentElement.innerHTML='<div style=\'padding:18px; color:#64748b; font-weight:800;\'>Bild hinzufügen: assets/crazy-bats.jpg</div>'" />
+        </div>
+
+        <div class="meta">
+        <h2>Crazy Bats</h2>
+        <ul class="facts">
+            <li class="fact"><span class="k">Modell</span><span class="v">Vekoma Custom MK-900</span></li>
+            <li class="fact"><span class="k">Max. Speed</span><span class="v">ca. 46 km/h</span></li>
+            <li class="fact"><span class="k">Höhe</span><span class="v">11,7 m</span></li>
+            <li class="fact"><span class="k">Länge</span><span class="v">ca. 1.175 m</span></li>
+            <li class="fact"><span class="k">Inversions</span><span class="v">0</span></li>
+            <li class="fact"><span class="k">Typ</span><span class="v">Indoor / Enclosed</span></li>
+        </ul>
+        <p class="note"><strong>Besonderheit:</strong> Indoor-Coaster (ehemals Temple of the Night Hawk) – heute als Crazy Bats bekannt.</p>
+        </div>
+    </div>
+    </article>
+
+    <!-- Chiapas – DIE Wasserbahn (keine Achterbahn) -->
+    <article class="card" id="chiapas">
+    <div class="card-inner">
+        <div class="imgwrap">
+        <img src="assets/chiapas.jpg" alt="Chiapas – DIE Wasserbahn"
+            onerror="this.style.display='none'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center'; this.parentElement.innerHTML='<div style=\'padding:18px; color:#64748b; font-weight:800;\'>Bild hinzufügen: assets/chiapas.jpg</div>'" />
+        </div>
+
+        <div class="meta">
+        <h2>Chiapas – DIE Wasserbahn</h2>
+        <ul class="facts">
+            <li class="fact"><span class="k">Modell</span><span class="v">Intamin Log Flume</span></li>
+            <li class="fact"><span class="k">Max. Speed</span><span class="v">76 km/h</span></li>
+            <li class="fact"><span class="k">Höhe</span><span class="v">ca. 15 m</span></li>
+            <li class="fact"><span class="k">Länge</span><span class="v">ca. 620–622 m</span></li>
+            <li class="fact"><span class="k">Inversions</span><span class="v">–</span></li>
+            <li class="fact"><span class="k">Typ</span><span class="v">Wasserbahn</span></li>
+        </ul>
+        <p class="note"><strong>Besonderheit:</strong> Keine Achterbahn, sondern Wasserbahn – bekannt für den sehr steilen Drop (53°).</p>
+        </div>
+    </div>
+    </article>
+
+
+
+
+      <!-- Beispiel: weiteren Eintrag kopieren -->
+      <!--
+      <article class="card" id="name">
+        <div class="card-inner">
+          <div class="imgwrap"><img src="assets/deinbild.jpg" alt="…" /></div>
+          <div class="meta">
+            <h2>Name der Bahn</h2>
+            <ul class="facts">…</ul>
+            <p class="note"><strong>Besonderheit:</strong> …</p>
+          </div>
+        </div>
+      </article>
+      -->
+    </section>
+
+    <footer>
+      <span>Stand: Beispielseite</span>
+      <span><a href="index.html" style="font-weight:800; color:var(--accent)">Zurück zu Parks</a></span>
+    </footer>
+  </main>
+</body>
+</html>

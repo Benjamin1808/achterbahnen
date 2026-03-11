@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Status – Parks</title>
+
+<style>
+:root{
+  --text:#0f172a;
+  --muted:#64748b;
+  --border:#e2e8f0;
+}
+
+
+  body{
+    margin:0;
+    font-family: system-ui, sans-serif;
+    background:#f8fafc;
+    color:#0f172a;
+  }
+
+  header{
+    background:#fff;
+    border-bottom:1px solid #e2e8f0;
+    padding:16px 24px;
+    font-weight:800;
+  }
+
+  main{
+    max-width:900px;
+    margin:40px auto;
+    padding:0 20px;
+  }
+
+  h1{
+    margin-bottom:24px;
+    font-size:36px;
+  }
+
+ /* Head */
+.status-head{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:14px;
+  margin-bottom:18px;
+}
+.status-head h1{
+  margin:0;
+  font-size:clamp(28px, 3.2vw, 40px);
+  letter-spacing:-.4px;
+}
+.back{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 12px;
+  border-radius:14px;
+  border:1px solid var(--border);
+  background:#fff;
+  font-weight:900;
+  color:var(--text);
+  text-decoration:none;
+  box-shadow:0 10px 24px rgba(2,6,23,.06);
+}
+.back:hover{box-shadow:0 14px 30px rgba(2,6,23,.08)}
+
+/* List */
+.status-list{
+  display:grid;
+  gap:12px;
+}
+
+/* Row (clickable card) */
+.status-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  padding:14px 16px;
+  border-radius:16px;
+  border:1px solid var(--border);
+  background:#fff;
+  box-shadow:0 10px 24px rgba(2,6,23,.06);
+  text-decoration:none;           /* verhindert blau/unterstrichen */
+  color:var(--text);
+}
+.status-row:hover{box-shadow:0 14px 30px rgba(2,6,23,.08)}
+
+/* Left block */
+.status-left{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+.status-title{
+  font-weight:900;
+  letter-spacing:-.2px;
+}
+.status-url{
+  color:var(--muted);
+  font-size:13px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  max-width:62ch;
+}
+
+/* Right block */
+.status-right{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+
+/* Badges */
+.badge{
+  font-weight:900;
+  font-size:12px;
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid rgba(15,23,42,.12);
+  background:#f1f5f9;
+  color:var(--text);
+  white-space:nowrap;
+}
+.badge.ok{border-color: rgba(22,101,52,.22); background: rgba(22,101,52,.08); color:#166534;}
+.badge.bad{border-color: rgba(127,29,29,.22); background: rgba(127,29,29,.08); color:#7f1d1d;}
+
+/* Mobile */
+@media (max-width: 520px){
+  .status-head{flex-direction:column; align-items:flex-start}
+  .status-right{justify-content:flex-start}
+  .status-url{max-width:34ch}
+}
+
+
+/* Mobile: Badges untereinander, URL kürzer */
+@media (max-width: 520px){
+  .status-row{align-items:flex-start}
+  .status-right{justify-content:flex-start}
+  .status-url{max-width:32ch}
+}
+
+  .online{
+    background:#dcfce7;
+    color:#166534;
+  }
+
+  .offline{
+    background:#fee2e2;
+    color:#7f1d1d;
+  }
+
+  footer{
+    margin-top:40px;
+    color:#64748b;
+    font-size:14px;
+    display:flex;
+    justify-content:space-between;
+  }
+</style>
+</head>
+
+<body>
+
+<header>
+  Parks · Systemstatus
+</header>
+
+<main>
+  <div class="status-head">
+    <a class="back" href="index.html">← Zurück zu Start</a>
+    <h1>Status der Unterseiten</h1>
+  </div>
+
+  
+
+  <div class="status-list" id="statusList"></div>
+
+  <footer>
+    <span>Statusprüfung per Live-Request</span>
+    <a href="index.html">← Zurück zu Parks</a>
+  </footer>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+      // 🔐 Passwortschutz für Status-Seite
+  (function () {
+    const PASSWORD = "1234";
+    const input = prompt("Bitte Passwort eingeben, um den Status zu sehen:");
+
+    if (input !== PASSWORD) {
+      alert("Falsches Passwort!");
+      window.location.href = "index.html";
+      return;
+    }
+  })();
+
+  const SUPABASE_URL = "https://bcbhzzytuhxxpwzjcdhy.supabase.co";
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJjYmh6enl0dWh4eHB3empjZGh5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg1MjM3NzgsImV4cCI6MjA4NDA5OTc3OH0.evX84yqvCHsAtlIPupTFTDj23bojjj0QiYmSAcaszzc"; // der eyJ... Key
+  const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+
+  // EINZIGE Quelle der Wahrheit: Hier pflegst du Seiten + ggf. Bilder.
+  const pages = [
+    { name: "Start", url: "index.html" },
+    { name: "Status", url: "status.html" },
+
+    { name: "Phantasialand", url: "phantasialand.html" },
+    {
+      name: "Phantasialand-Achterbahnen",
+      url: "phantasialand-achterbahnen.html",
+      images: [
+        "assets/taron.jpg",
+        "assets/blackmamba.jpg",
+        "assets/fly.jpg",
+        "assets/raik.jpg",
+        "assets/colorado.jpg",
+        "assets/crazy-bats.jpg",
+        "assets/chiapas.jpg"
+      ]
+    },
+
+    { name: "Blog", url: "blog.html", imageMode: "supabase-blog" },
+    { name: "Events", url: "events.html" },
+    { name: "About", url: "about.html" },
+    { name: "Shop", url: "shop.html" },
+    { name: "FAQs", url: "faqs.html" },
+    { name: "Patterns", url: "patterns.html" },
+    { name: "Authors", url: "authors.html" },
+    { name: "Themes", url: "themes.html" }
+  ];
+
+  function checkImage(src) {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => resolve(true);
+      img.onerror = () => resolve(false);
+      img.src = src + "?cache=" + Date.now();
+    });
+  }
+
+  async function checkBlogImagesFromSupabase({ limit = 50 } = {}) {
+    // 1) Posts holen (nur image_url)
+    const { data, error } = await sb
+      .from("blog_posts")
+      .select("image_url")
+      .not("image_url", "is", null)
+      .order("created_at", { ascending: false })
+      .limit(limit);
+
+    if (error) {
+      return { total: 0, missing: 0, ok: false, error: error.message || "Blog Query fehlgeschlagen" };
+    }
+
+    const urls = (data || [])
+      .map(r => (r.image_url || "").trim())
+      .filter(u => u.length > 0);
+
+    if (urls.length === 0) {
+      return { total: 0, missing: 0, ok: true, note: "Keine Blog-Bilder" };
+    }
+
+    // 2) Jede URL wirklich laden testen
+    let missing = 0;
+    for (const url of urls) {
+      const ok = await checkImage(url);
+      if (!ok) missing++;
+    }
+
+    return { total: urls.length, missing, ok: missing === 0 };
+  }
+
+  async function checkPage(url) {
+    try {
+      const res = await fetch(url, { method: "HEAD", cache: "no-store" });
+      return res.ok;
+    } catch {
+      return false;
+    }
+  }
+
+  async function checkImages(imageList) {
+    if (!Array.isArray(imageList) || imageList.length === 0) return null; // null = keine Bilder definiert
+    for (const src of imageList) {
+      const ok = await checkImage(src);
+      if (!ok) return false;
+    }
+    return true;
+  }
+
+  (async () => {
+    const container = document.getElementById("statusList");
+    if (!container) return;
+
+    for (const p of pages) {
+      const pageOk = await checkPage(p.url);
+
+      let imageStatus = null;
+      if (p.imageMode === "supabase-blog") {
+        imageStatus = await checkBlogImagesFromSupabase({ limit: 50 });
+      } else {
+        const ok = await checkImages(p.images);
+        if (ok === null) imageStatus = null;
+        else imageStatus = { ok, total: Array.isArray(p.images) ? p.images.length : 0, missing: ok ? 0 : 1 }; 
+      }
+
+
+      const row = document.createElement("a");
+      row.className = "status-row";
+      row.href = p.url;
+
+      const left = document.createElement("div");
+      left.innerHTML = `<strong>${p.name}</strong><br><span style="color:var(--muted)">${p.url}</span>`;
+
+      const right = document.createElement("div");
+      right.style.display = "flex";
+      right.style.gap = "8px";
+
+      const pageBadge = document.createElement("span");
+      pageBadge.className = "badge " + (pageOk ? "ok" : "bad");
+      pageBadge.textContent = pageOk ? "Seite online" : "Seite offline";
+
+      const imgBadge = document.createElement("span");
+
+      if (p.imageMode === "supabase-blog") {
+        if (imageStatus?.error) {
+          imgBadge.className = "badge bad";
+          imgBadge.textContent = "Blog-Bilder: Fehler";
+        } else if (imageStatus?.note) {
+          imgBadge.className = "badge";
+          imgBadge.textContent = "Blog-Bilder: keine";
+        } else if (imageStatus?.ok) {
+          imgBadge.className = "badge ok";
+          imgBadge.textContent = `Blog-Bilder OK (${imageStatus.total}/${imageStatus.total})`;
+        } else {
+          imgBadge.className = "badge bad";
+          imgBadge.textContent = `Blog-Bilder fehlen: ${imageStatus.missing} (${imageStatus.total - imageStatus.missing}/${imageStatus.total})`;
+        }
+      } else {
+        // normales Verhalten (assets-Liste)
+        if (imageStatus === null) {
+          imgBadge.className = "badge";
+          imgBadge.textContent = "Keine Bilder";
+        } else if (imageStatus.ok) {
+          imgBadge.className = "badge ok";
+          imgBadge.textContent = `Bilder OK (${imageStatus.total}/${imageStatus.total})`;
+        } else {
+          imgBadge.className = "badge bad";
+          imgBadge.textContent = "Bilder fehlen";
+        }
+      }
+
+
+      right.appendChild(pageBadge);
+      right.appendChild(imgBadge);
+
+      row.appendChild(left);
+      row.appendChild(right);
+
+      container.appendChild(row);
+    }
+  })();
+</script>
+
+
+
+
+</body>
+</html>
