@@ -193,6 +193,7 @@
 <script>
       // 🔐 Passwortschutz für Status-Seite
   (function () {
+    
     const PASSWORD = "1234";
     const input = prompt("Bitte Passwort eingeben, um den Status zu sehen:");
 
@@ -204,7 +205,7 @@
   })();
 
   const SUPABASE_URL = "https://vjjeuhchybdjigdfdbbr.supabase.co";
-  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJjYmh6enl0dWh4eHB3empjZGh5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg1MjM3NzgsImV4cCI6MjA4NDA5OTc3OH0.evX84yqvCHsAtlIPupTFTDj23bojjj0QiYmSAcaszzc"; // der eyJ... Key
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZqamV1aGNoeWJkamlnZGZkYmJyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyMjgwODQsImV4cCI6MjA4ODgwNDA4NH0.qloP4bKYY3YhnbchhUAbA7hyplL-ScVRQ77xKR0vUrw"; // der eyJ... Key
   const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 
