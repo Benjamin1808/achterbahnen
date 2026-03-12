@@ -8,13 +8,13 @@
 
   <style>
     :root{
-      --bg:#ffffff;
-      --text:#0f172a;
-      --muted:#64748b;
-      --border:#e2e8f0;
-      --surface:#ffffff;
-      --accent:#6d28d9;
-      --shadow:0 12px 28px rgba(2,6,23,.08);
+      --bg:#0f172a;
+      --text:#f1f5f9;
+      --muted:#94a3b8;
+      --border:#334155;
+      --surface:#1e293b;
+      --accent:#3b82f6;
+      --shadow:0 12px 28px rgba(0,0,0,.45);
       --radius:18px;
       --max:1100px;
       --header-h:72px;
@@ -25,16 +25,16 @@
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       color:var(--text);
-      background:linear-gradient(180deg,#fff 0%,#fff 55%,#f8fafc 100%);
+      background:linear-gradient(180deg,#0f172a 0%,#0d1526 55%,#0a1120 100%);
     }
     a{color:inherit; text-decoration:none}
-    a:focus-visible, button:focus-visible{outline:3px solid rgba(109,40,217,.35); outline-offset:3px; border-radius:10px}
+    a:focus-visible, button:focus-visible{outline:3px solid rgba(59,130,246,.5); outline-offset:3px; border-radius:10px}
 
     header{
       position:sticky;
       top:0;
       z-index:50;
-      background:rgba(255,255,255,.82);
+      background:rgba(13,20,37,.96);
       backdrop-filter:saturate(180%) blur(10px);
       border-bottom:1px solid var(--border);
     }
@@ -52,8 +52,8 @@
     .brand{display:flex; align-items:center; gap:10px; font-weight:900; font-size:20px; letter-spacing:.2px}
     .brand-mark{
       width:34px; height:34px; border-radius:12px;
-      background:linear-gradient(135deg, rgba(249,115,22,.95), rgba(99,102,241,.9));
-      box-shadow:0 8px 18px rgba(99,102,241,.22);
+      background:linear-gradient(135deg,#2563eb,#1e3a8a);
+      box-shadow:0 8px 18px rgba(59,130,246,.35);
     }
 
     .btn{
@@ -94,7 +94,7 @@
 
     .card{
       border:1px solid var(--border);
-      background:rgba(255,255,255,.86);
+      background:rgba(30,41,59,.95);
       border-radius:var(--radius);
       box-shadow:var(--shadow);
       overflow:hidden;
@@ -111,8 +111,8 @@
     .imgwrap{
       border-radius:14px;
       overflow:hidden;
-      border:1px solid rgba(226,232,240,.9);
-      background:#f1f5f9;
+      border:1px solid rgba(51,65,85,.9);
+      background:#0f172a;
       aspect-ratio: 4 / 3;
       display:flex;
       align-items:stretch;
@@ -136,10 +136,10 @@
     }
 
     .fact{
-      border:1px solid rgba(226,232,240,.9);
+      border:1px solid rgba(51,65,85,.9);
       border-radius:14px;
       padding:10px 12px;
-      background:#fff;
+      background:#1e293b;
     }
     .k{display:block; font-size:12px; color:var(--muted); font-weight:800; text-transform:uppercase; letter-spacing:.08em}
     .v{display:block; font-weight:800; margin-top:4px}
@@ -147,7 +147,7 @@
     .note{
       margin-top:12px;
       padding-top:12px;
-      border-top:1px solid rgba(226,232,240,.9);
+      border-top:1px solid rgba(51,65,85,.9);
       color:var(--muted);
       line-height:1.6;
     }
