@@ -252,7 +252,7 @@
     const { data, error } = await sb
       .from("blog_posts")
       .select("image_url")
-      .not("image_url", "is", null)
+      .not("image_url", "is", NULL)
       .order("created_at", { ascending: false })
       .limit(limit);
 
