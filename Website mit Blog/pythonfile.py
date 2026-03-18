@@ -10,7 +10,7 @@ wait=1
 
 print("RussischRoulette - A simple game of chance")
 print("Type 'play' to play the game or 'exit' to quit.")
-if input().lower() == 'play'or'Play':
+if input().lower() == 'play':
     print("Generating Number 1-10")
     number = random.randint(1, 10)
     for i in range(10):
